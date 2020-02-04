@@ -19,9 +19,9 @@ limitations under the License.
 package fake
 
 import (
-	clientset "github.com/openebs/apis/pkg/client/generated/clientset/versioned"
-	openebsv1 "github.com/openebs/apis/pkg/client/generated/clientset/versioned/typed/openebs.io/v1"
-	fakeopenebsv1 "github.com/openebs/apis/pkg/client/generated/clientset/versioned/typed/openebs.io/v1/fake"
+	clientset "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned"
+	openebsv1 "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned/typed/openebs.io/v1"
+	fakeopenebsv1 "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned/typed/openebs.io/v1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"

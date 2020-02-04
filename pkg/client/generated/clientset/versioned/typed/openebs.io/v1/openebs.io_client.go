@@ -19,8 +19,8 @@ limitations under the License.
 package v1
 
 import (
-	v1 "github.com/openebs/apis/pkg/apis/openebs.io/v1"
-	"github.com/openebs/apis/pkg/client/generated/clientset/versioned/scheme"
+	v1 "github.com/sonasingh46/apis/pkg/apis/openebs.io/v1"
+	"github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned/scheme"
 	rest "k8s.io/client-go/rest"
 )
 

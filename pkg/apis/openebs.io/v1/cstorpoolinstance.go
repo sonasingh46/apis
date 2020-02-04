@@ -18,8 +18,8 @@ package v1
 
 import (
 	corev1 "k8s.io/api/core/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 // +genclient
@@ -32,11 +32,11 @@ type CStorPoolInstance struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// Spec is the specification of the cstorpoolinstance resource.
-	Spec           CStorPoolInstanceSpec `json:"spec"`
+	Spec CStorPoolInstanceSpec `json:"spec"`
 	// Status is the possible statuses of the cstorpoolinstance resource.
-	Status         CStorPoolInstanceStatus       `json:"status"`
+	Status CStorPoolInstanceStatus `json:"status"`
 	// VersionDetails is the openebs version.
-	VersionDetails VersionDetails        `json:"versionDetails"`
+	VersionDetails VersionDetails `json:"versionDetails"`
 }
 
 // CStorPoolInstanceSpec is the spec listing fields for a CStorPoolInstance resource.
@@ -64,14 +64,14 @@ type CStorPoolInstanceStatus struct {
 	Conditions []CStorPoolInstanceCondition
 	//  The phase of a CStorPool is a simple, high-level summary of the pool state on the
 	//  node.
-	Phase    CStorPoolInstancePhase        `json:"phase"`
+	Phase CStorPoolInstancePhase `json:"phase"`
 	// Capacity describes the capacity details of a cstor pool
-	Capacity CStorPoolInstacneCapacity `json:"capacity"`
-	LastTransitionTime metav1.Time `json:"lastTransitionTime,omitempty"`
-	LastUpdateTime     metav1.Time `json:"lastUpdateTime,omitempty"`
+	Capacity           CStorPoolInstacneCapacity `json:"capacity"`
+	LastTransitionTime metav1.Time               `json:"lastTransitionTime,omitempty"`
+	LastUpdateTime     metav1.Time               `json:"lastUpdateTime,omitempty"`
 	// A human readable message indicating details about why the CSPI is in this
 	// condition.
-	Message            string      `json:"message,omitempty"`
+	Message string `json:"message,omitempty"`
 }
 
 // CStorPoolCapacityAttr stores the pool capacity related attributes.
@@ -106,5 +106,5 @@ type CStorPoolInstanceCondition struct {
 type CStorPoolInstanceList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata"`
-	Items []CStorPoolInstance `json:"items"`
+	Items           []CStorPoolInstance `json:"items"`
 }

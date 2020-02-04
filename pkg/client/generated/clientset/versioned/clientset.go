@@ -21,7 +21,7 @@ package versioned
 import (
 	"fmt"
 
-	openebsv1 "github.com/openebs/apis/pkg/client/generated/clientset/versioned/typed/openebs.io/v1"
+	openebsv1 "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned/typed/openebs.io/v1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"

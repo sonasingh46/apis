@@ -182,4 +182,3 @@ type CStorPoolClusterList struct {
 
 	Items []CStorPoolCluster `json:"items"`
 }
-

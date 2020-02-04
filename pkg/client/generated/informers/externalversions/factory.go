@@ -23,9 +23,9 @@ import (
 	sync "sync"
 	time "time"
 
-	versioned "github.com/openebs/apis/pkg/client/generated/clientset/versioned"
-	internalinterfaces "github.com/openebs/apis/pkg/client/generated/informers/externalversions/internalinterfaces"
-	openebsio "github.com/openebs/apis/pkg/client/generated/informers/externalversions/openebs.io"
+	versioned "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned"
+	internalinterfaces "github.com/sonasingh46/apis/pkg/client/generated/informers/externalversions/internalinterfaces"
+	openebsio "github.com/sonasingh46/apis/pkg/client/generated/informers/externalversions/openebs.io"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"

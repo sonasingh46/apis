@@ -17,15 +17,16 @@ limitations under the License.
 package v1
 
 import (
+	"github.com/sonasingh46/apis/pkg/apis/openebs.io"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/openebs/apis/pkg/apis/openebs.io"
 )
 
 const (
-	apiVersion="v1"
+	apiVersion = "v1"
 )
+
 // SchemeGroupVersion is group version used to register these objects
 var SchemeGroupVersion = schema.GroupVersion{Group: openebsio.GroupName, Version: apiVersion}
 

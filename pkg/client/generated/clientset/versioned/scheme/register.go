@@ -19,7 +19,7 @@ limitations under the License.
 package scheme
 
 import (
-	openebsv1 "github.com/openebs/apis/pkg/apis/openebs.io/v1"
+	openebsv1 "github.com/sonasingh46/apis/pkg/apis/openebs.io/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"

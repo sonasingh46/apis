@@ -21,8 +21,8 @@ package v1
 import (
 	"time"
 
-	v1 "github.com/openebs/apis/pkg/apis/openebs.io/v1"
-	scheme "github.com/openebs/apis/pkg/client/generated/clientset/versioned/scheme"
+	v1 "github.com/sonasingh46/apis/pkg/apis/openebs.io/v1"
+	scheme "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned/scheme"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"

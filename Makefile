@@ -17,10 +17,10 @@
 # Default arguments for code gen script
 
 # OUTPUT_PKG is the path of directory where you want to keep the generated code
-OUTPUT_PKG=github.com/openebs/apis/pkg/client/generated
+OUTPUT_PKG=github.com/sonasingh46/apis/pkg/client/generated
 
 # APIS_PKG is the path where apis group and schema exists.
-APIS_PKG=github.com/openebs/apis/pkg/apis
+APIS_PKG=github.com/sonasingh46/apis/pkg/apis
 
 # GENS is an argument which generates different type of code.
 # Possible values: all, deepcopy, client, informers, listers.
