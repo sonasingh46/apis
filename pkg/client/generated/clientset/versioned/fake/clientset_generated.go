@@ -20,10 +20,8 @@ package fake
 
 import (
 	clientset "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned"
-	openebsv1 "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned/typed/openebs.io/v1"
-	fakeopenebsv1 "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned/typed/openebs.io/v1/fake"
-	openebsv1alpha1 "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned/typed/openebs.io/v1alpha1"
-	fakeopenebsv1alpha1 "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned/typed/openebs.io/v1alpha1/fake"
+	cstorv1 "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned/typed/cstor.openebs.io/v1"
+	fakecstorv1 "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned/typed/cstor.openebs.io/v1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"
@@ -78,12 +76,7 @@ func (c *Clientset) Tracker() testing.ObjectTracker {
 
 var _ clientset.Interface = &Clientset{}
 
-// OpenebsV1 retrieves the OpenebsV1Client
-func (c *Clientset) OpenebsV1() openebsv1.OpenebsV1Interface {
-	return &fakeopenebsv1.FakeOpenebsV1{Fake: &c.Fake}
-}
-
-// OpenebsV1alpha1 retrieves the OpenebsV1alpha1Client
-func (c *Clientset) OpenebsV1alpha1() openebsv1alpha1.OpenebsV1alpha1Interface {
-	return &fakeopenebsv1alpha1.FakeOpenebsV1alpha1{Fake: &c.Fake}
+// CstorV1 retrieves the CstorV1Client
+func (c *Clientset) CstorV1() cstorv1.CstorV1Interface {
+	return &fakecstorv1.FakeCstorV1{Fake: &c.Fake}
 }
