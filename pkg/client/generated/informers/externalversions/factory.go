@@ -26,6 +26,7 @@ import (
 	versioned "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned"
 	cstoropenebsio "github.com/sonasingh46/apis/pkg/client/generated/informers/externalversions/cstor.openebs.io"
 	internalinterfaces "github.com/sonasingh46/apis/pkg/client/generated/informers/externalversions/internalinterfaces"
+	ndm "github.com/sonasingh46/apis/pkg/client/generated/informers/externalversions/ndm"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -173,8 +174,13 @@ type SharedInformerFactory interface {
 	WaitForCacheSync(stopCh <-chan struct{}) map[reflect.Type]bool
 
 	Cstor() cstoropenebsio.Interface
+	Ndm() ndm.Interface
 }
 
 func (f *sharedInformerFactory) Cstor() cstoropenebsio.Interface {
 	return cstoropenebsio.New(f, f.namespace, f.tweakListOptions)
+}
+
+func (f *sharedInformerFactory) Ndm() ndm.Interface {
+	return ndm.New(f, f.namespace, f.tweakListOptions)
 }

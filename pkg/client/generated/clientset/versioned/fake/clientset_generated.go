@@ -22,6 +22,8 @@ import (
 	clientset "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned"
 	cstorv1 "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned/typed/cstor.openebs.io/v1"
 	fakecstorv1 "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned/typed/cstor.openebs.io/v1/fake"
+	ndmv1alpha1 "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned/typed/ndm/v1alpha1"
+	fakendmv1alpha1 "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned/typed/ndm/v1alpha1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"
@@ -79,4 +81,9 @@ var _ clientset.Interface = &Clientset{}
 // CstorV1 retrieves the CstorV1Client
 func (c *Clientset) CstorV1() cstorv1.CstorV1Interface {
 	return &fakecstorv1.FakeCstorV1{Fake: &c.Fake}
+}
+
+// NdmV1alpha1 retrieves the NdmV1alpha1Client
+func (c *Clientset) NdmV1alpha1() ndmv1alpha1.NdmV1alpha1Interface {
+	return &fakendmv1alpha1.FakeNdmV1alpha1{Fake: &c.Fake}
 }
