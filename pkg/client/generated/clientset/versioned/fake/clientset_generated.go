@@ -20,10 +20,10 @@ package fake
 
 import (
 	clientset "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned"
-	cstorv1 "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned/typed/cstor.openebs.io/v1"
-	fakecstorv1 "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned/typed/cstor.openebs.io/v1/fake"
-	ndmv1alpha1 "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned/typed/ndm/v1alpha1"
-	fakendmv1alpha1 "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned/typed/ndm/v1alpha1/fake"
+	cstorv1 "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned/typed/cstor/v1"
+	fakecstorv1 "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned/typed/cstor/v1/fake"
+	openebsv1alpha1 "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned/typed/openebs.io/v1alpha1"
+	fakeopenebsv1alpha1 "github.com/sonasingh46/apis/pkg/client/generated/clientset/versioned/typed/openebs.io/v1alpha1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"
@@ -83,7 +83,7 @@ func (c *Clientset) CstorV1() cstorv1.CstorV1Interface {
 	return &fakecstorv1.FakeCstorV1{Fake: &c.Fake}
 }
 
-// NdmV1alpha1 retrieves the NdmV1alpha1Client
-func (c *Clientset) NdmV1alpha1() ndmv1alpha1.NdmV1alpha1Interface {
-	return &fakendmv1alpha1.FakeNdmV1alpha1{Fake: &c.Fake}
+// OpenebsV1alpha1 retrieves the OpenebsV1alpha1Client
+func (c *Clientset) OpenebsV1alpha1() openebsv1alpha1.OpenebsV1alpha1Interface {
+	return &fakeopenebsv1alpha1.FakeOpenebsV1alpha1{Fake: &c.Fake}
 }
