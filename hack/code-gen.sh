@@ -54,7 +54,7 @@ shift 4
   # so we can install the tools.
   #cd $(dirname "${0}")
   cd vendor/k8s.io/code-generator/ 
-  go install ./cmd/{defaulter-gen,client-gen,lister-gen,informer-gen,deepcopy-gen}
+  go install ./cmd/{defaulter-gen,client-gen,lister-gen,informer-gen,deepcopy-gen,conversion-gen,defaulter-gen}
 )
 
 function codegen::join() { local IFS="$1"; shift; echo "$*"; }
@@ -70,27 +70,120 @@ for GVs in ${GROUPS_WITH_VERSIONS}; do
   done
 done
 
-if [ "${GENS}" = "all" ] || grep -qw "deepcopy" <<<"${GENS}"; then
-  echo "Generating deepcopy funcs"
-  ${GOPATH}/bin/deepcopy-gen --input-dirs $(codegen::join , "${FQ_APIS[@]}") -O zz_generated.deepcopy --bounding-dirs ${APIS_PKG} "$@" 
-fi
+module_name="github.com/sonasingh46/apis"
 
-if [ "${GENS}" = "all" ] || grep -qw "client" <<<"${GENS}"; then
-  echo "Generating clientset for ${GROUPS_WITH_VERSIONS} at ${OUTPUT_PKG}/clientset"
-  ${GOPATH}/bin/client-gen --clientset-name ${CLIENTSET_NAME_VERSIONED:-versioned} --input-base "" --input $(codegen::join , "${FQ_APIS[@]}") --output-package ${OUTPUT_PKG}/clientset "$@"
-fi
+# Generate deepcopy functions for all internal and external APIs
+deepcopy_inputs=(
+  pkg/apis/cstor/v1 \
+  pkg/apis/openebs.io/v1alpha1 \
+  pkg/internal/apis/cstor \
+)
 
-if [ "${GENS}" = "all" ] || grep -qw "lister" <<<"${GENS}"; then
-  echo "Generating listers for ${GROUPS_WITH_VERSIONS} at ${OUTPUT_PKG}/listers"
-  ${GOPATH}/bin/lister-gen --input-dirs $(codegen::join , "${FQ_APIS[@]}") --output-package ${OUTPUT_PKG}/listers "$@"
-fi
+client_subpackage="pkg/client"
+client_package="${module_name}/${client_subpackage}"
+# Generate clientsets, listers and informers for user-facing API types
+client_inputs=(
+  pkg/apis/cstor/v1 \
+  pkg/apis/openebs.io/v1alpha1 \
+)
 
-if [ "${GENS}" = "all" ] || grep -qw "informer" <<<"${GENS}"; then
-  echo "Generating informers for ${GROUPS_WITH_VERSIONS} at ${OUTPUT_PKG}/informers"
-  ${GOPATH}/bin/informer-gen \
-           --input-dirs $(codegen::join , "${FQ_APIS[@]}") \
-           --versioned-clientset-package ${OUTPUT_PKG}/clientset/${CLIENTSET_NAME_VERSIONED:-versioned} \
-           --listers-package ${OUTPUT_PKG}/listers \
-           --output-package ${OUTPUT_PKG}/informers \
-           "$@"
-fi
+# Generate defaulting functions to be used by the mutating webhook
+defaulter_inputs=(
+  pkg/internal/apis/cstor/v1 \
+)
+
+# Generate conversion functions to be used by the conversion webhook
+conversion_inputs=(
+  pkg/internal/apis/cstor/v1 \
+)
+
+
+gen-deepcopy() {
+#  clean pkg/apis 'zz_generated.deepcopy.go'
+  echo "Generating deepcopy methods..." >&2
+  prefixed_inputs=( "${deepcopy_inputs[@]/#/$module_name/}" )
+  joined=$( IFS=$','; echo "${prefixed_inputs[*]}" )
+  "${GOPATH}/bin/deepcopy-gen" \
+    --go-header-file hack/custom-boilerplate.go.txt \
+    --input-dirs "$joined" \
+    --output-file-base zz_generated.deepcopy \
+    --bounding-dirs "${module_name}"
+#  for dir in "${deepcopy_inputs[@]}"; do
+#    copyfiles "$dir" "zz_generated.deepcopy.go"
+#  done
+}
+
+gen-clientsets() {
+#  clean "${client_subpackage}"/clientset '*.go'
+  echo "Generating clientset..." >&2
+  prefixed_inputs=( "${client_inputs[@]/#/$module_name/}" )
+  joined=$( IFS=$','; echo "${prefixed_inputs[*]}" )
+  "${GOPATH}/bin/client-gen" \
+    --go-header-file hack/custom-boilerplate.go.txt \
+    --clientset-name versioned \
+    --input-base "" \
+    --input "$joined" \
+    --output-package "${client_package}"/clientset
+#  copyfiles "${client_subpackage}/clientset" "*.go"
+}
+
+gen-listers() {
+#  clean "${client_subpackage}/listers" '*.go'
+  echo "Generating listers..." >&2
+  prefixed_inputs=( "${client_inputs[@]/#/$module_name/}" )
+  joined=$( IFS=$','; echo "${prefixed_inputs[*]}" )
+  "${GOPATH}/bin/lister-gen" \
+    --go-header-file hack/custom-boilerplate.go.txt \
+    --input-dirs "$joined" \
+    --output-package "${client_package}"/listers
+#  copyfiles "${client_subpackage}/listers" "*.go"
+}
+
+gen-informers() {
+#  clean "${client_subpackage}"/informers '*.go'
+  echo "Generating informers..." >&2
+  prefixed_inputs=( "${client_inputs[@]/#/$module_name/}" )
+  joined=$( IFS=$','; echo "${prefixed_inputs[*]}" )
+  "${GOPATH}/bin/informer-gen" \
+    --go-header-file hack/custom-boilerplate.go.txt \
+    --input-dirs "$joined" \
+    --versioned-clientset-package "${client_package}"/clientset/versioned \
+    --listers-package "${client_package}"/listers \
+    --output-package "${client_package}"/informers
+#  copyfiles "${client_subpackage}/informers" "*.go"
+}
+
+gen-defaulters() {
+#  clean pkg/internal/apis 'zz_generated.defaults.go'
+  echo "Generating defaulting functions..." >&2
+  prefixed_inputs=( "${defaulter_inputs[@]/#/$module_name/}" )
+  joined=$( IFS=$','; echo "${prefixed_inputs[*]}" )
+  "${GOPATH}/bin/defaulter-gen" \
+    --go-header-file hack/custom-boilerplate.go.txt \
+    --input-dirs "$joined" \
+    -O zz_generated.defaults
+#  for dir in "${defaulter_inputs[@]}"; do
+#    copyfiles "$dir" "zz_generated.defaults.go"
+#  done
+}
+
+gen-conversions() {
+#  clean pkg/internal/apis 'zz_generated.conversion.go'
+  echo "Generating conversion functions..." >&2
+  prefixed_inputs=( "${conversion_inputs[@]/#/$module_name/}" )
+  joined=$( IFS=$','; echo "${prefixed_inputs[*]}" )
+  "${GOPATH}/bin/conversion-gen" \
+    --go-header-file hack/custom-boilerplate.go.txt \
+    --input-dirs "$joined" \
+    -O zz_generated.conversion
+#  for dir in "${conversion_inputs[@]}"; do
+#    copyfiles "$dir" "zz_generated.conversion.go"
+#  done
+}
+
+gen-deepcopy
+gen-clientsets
+gen-listers
+gen-informers
+gen-defaulters
+gen-conversions

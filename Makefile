@@ -21,12 +21,14 @@ OUTPUT_PKG=github.com/sonasingh46/apis/pkg/client/generated
 
 # APIS_PKG is the path where apis group and schema exists.
 APIS_PKG=github.com/sonasingh46/apis/pkg/apis
+INTERNAL_APIS_PKG=github.com/sonasingh46/apis/pkg/internal/apis
 
 # GENS is an argument which generates different type of code.
 # Possible values: all, deepcopy, client, informers, listers.
 GENS=all
 # GROUPS_WITH_VERSIONS is the group containing different versions of the resources.
 GROUPS_WITH_VERSIONS="cstor:v1 openebs.io:v1alpha1"
+INTERNAL_GROUPS_WITH_VERSIONS="cstor:v1"
 
 # BOILERPLATE_TEXT_PATH is the boilerplate text(go comment) that is put at the top of every generated file.
 # This boilerplate text is nothing but the license information.

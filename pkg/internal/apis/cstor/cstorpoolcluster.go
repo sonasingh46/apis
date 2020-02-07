@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package v1
+package cstor
 
 import (
 	corev1 "k8s.io/api/core/v1"
@@ -39,7 +39,6 @@ const (
 // +genclient
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-// +k8s:openapi-gen=true
 // +resource:path=cstorpoolcluster
 
 // CStorPoolCluster describes a CStorPoolCluster custom resource.
