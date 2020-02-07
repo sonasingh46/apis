@@ -72,11 +72,11 @@ done
 
 module_name="github.com/sonasingh46/apis"
 
-# Generate deepcopy functions for all internal and external APIs
+# Generate deepcopy functions for all intapis and external APIs
 deepcopy_inputs=(
   pkg/apis/cstor/v1 \
   pkg/apis/openebs.io/v1alpha1 \
-  pkg/internal/apis/cstor \
+  pkg/intapis/apis/cstor \
 )
 
 client_subpackage="pkg/client"
@@ -89,12 +89,12 @@ client_inputs=(
 
 # Generate defaulting functions to be used by the mutating webhook
 defaulter_inputs=(
-  pkg/internal/apis/cstor/v1 \
+  pkg/intapis/apis/cstor/v1 \
 )
 
 # Generate conversion functions to be used by the conversion webhook
 conversion_inputs=(
-  pkg/internal/apis/cstor/v1 \
+  pkg/intapis/apis/cstor/v1 \
 )
 
 
@@ -154,7 +154,7 @@ gen-informers() {
 }
 
 gen-defaulters() {
-#  clean pkg/internal/apis 'zz_generated.defaults.go'
+#  clean pkg/intapis/apis 'zz_generated.defaults.go'
   echo "Generating defaulting functions..." >&2
   prefixed_inputs=( "${defaulter_inputs[@]/#/$module_name/}" )
   joined=$( IFS=$','; echo "${prefixed_inputs[*]}" )
@@ -168,7 +168,7 @@ gen-defaulters() {
 }
 
 gen-conversions() {
-#  clean pkg/internal/apis 'zz_generated.conversion.go'
+#  clean pkg/intapis/apis 'zz_generated.conversion.go'
   echo "Generating conversion functions..." >&2
   prefixed_inputs=( "${conversion_inputs[@]/#/$module_name/}" )
   joined=$( IFS=$','; echo "${prefixed_inputs[*]}" )

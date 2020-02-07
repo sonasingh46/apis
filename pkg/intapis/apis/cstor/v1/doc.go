@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-// +k8s:conversion-gen=github.com/sonasingh46/apis/pkg/internal/apis/cstor
+// +k8s:conversion-gen=github.com/sonasingh46/apis/pkg/intapis/apis/cstor
 // +k8s:conversion-gen-external-types=github.com/sonasingh46/apis/pkg/apis/cstor/v1
 
 // +groupName=cstor.openebs.io

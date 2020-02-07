@@ -24,7 +24,7 @@ import (
 	unsafe "unsafe"
 
 	v1 "github.com/sonasingh46/apis/pkg/apis/cstor/v1"
-	cstor "github.com/sonasingh46/apis/pkg/internal/apis/cstor"
+	cstor "github.com/sonasingh46/apis/pkg/intapis/apis/cstor"
 	corev1 "k8s.io/api/core/v1"
 	conversion "k8s.io/apimachinery/pkg/conversion"
 	runtime "k8s.io/apimachinery/pkg/runtime"
