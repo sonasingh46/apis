@@ -13,10 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-
+// Package cstor is the v1 version of the API.
 // +groupName=openebs.io
-
-// Package openebs is the openebs.io API group
+// +k8s:deepcopy-gen=package,register
 package openebs
-
-const GroupName = "openebs.io"

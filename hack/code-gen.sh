@@ -77,6 +77,7 @@ deepcopy_inputs=(
   pkg/apis/cstor/v1 \
   pkg/apis/openebs.io/v1alpha1 \
   pkg/intapis/apis/cstor \
+  pkg/intapis/apis/openebs.io \
 )
 
 client_subpackage="pkg/client"
@@ -90,11 +91,13 @@ client_inputs=(
 # Generate defaulting functions to be used by the mutating webhook
 defaulter_inputs=(
   pkg/intapis/apis/cstor/v1 \
+  pkg/intapis/apis/openebs.io/v1alpha1 \
 )
 
 # Generate conversion functions to be used by the conversion webhook
 conversion_inputs=(
   pkg/intapis/apis/cstor/v1 \
+  pkg/intapis/apis/openebs.io/v1alpha1 \
 )
 
 

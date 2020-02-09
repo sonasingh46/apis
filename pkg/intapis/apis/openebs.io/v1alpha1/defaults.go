@@ -14,9 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-// +groupName=openebs.io
+package v1alpha1
 
-// Package openebs is the openebs.io API group
-package openebs
+import (
+	"k8s.io/apimachinery/pkg/runtime"
+)
 
-const GroupName = "openebs.io"
+func addDefaultingFuncs(scheme *runtime.Scheme) error {
+	return RegisterDefaults(scheme)
+}
