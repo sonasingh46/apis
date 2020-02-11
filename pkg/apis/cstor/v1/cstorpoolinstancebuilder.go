@@ -121,16 +121,7 @@ func (cspi *CStorPoolInstance) WithFinalizer(finalizers ...string) *CStorPoolIns
 
 // WithCSPCOwnerReference sets the OwnerReference field in CSPI with required
 //fields
-func (cspi *CStorPoolInstance) WithCSPCOwnerReference(cspc CStorPoolCluster) *CStorPoolInstance {
-	trueVal := true
-	reference := metav1.OwnerReference{
-		APIVersion:         APIVersion,
-		Kind:               StoragePoolKindCSPC,
-		UID:                cspc.ObjectMeta.UID,
-		Name:               cspc.ObjectMeta.Name,
-		BlockOwnerDeletion: &trueVal,
-		Controller:         &trueVal,
-	}
+func (cspi *CStorPoolInstance) WithCSPCOwnerReference(reference metav1.OwnerReference) *CStorPoolInstance {
 	cspi.OwnerReferences = append(cspi.OwnerReferences, reference)
 	return cspi
 }

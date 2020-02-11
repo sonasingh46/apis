@@ -17,7 +17,6 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"github.com/sonasingh46/apis/pkg/intapis/apis/cstor"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -123,16 +122,7 @@ func (bdc *BlockDeviceClaim) WithCapacity(capacity resource.Quantity) *BlockDevi
 
 // WithCSPCOwnerReference sets the OwnerReference field in BDC with required
 //fields
-func (bdc *BlockDeviceClaim) WithCSPCOwnerReference(cspc *cstor.CStorPoolCluster) *BlockDeviceClaim {
-	trueVal := true
-	reference := metav1.OwnerReference{
-		APIVersion:         APIVersion,
-		Kind:               StoragePoolKindCSPC,
-		UID:                cspc.ObjectMeta.UID,
-		Name:               cspc.ObjectMeta.Name,
-		BlockOwnerDeletion: &trueVal,
-		Controller:         &trueVal,
-	}
+func (bdc *BlockDeviceClaim) WithCSPCOwnerReference(reference metav1.OwnerReference) *BlockDeviceClaim {
 	bdc.OwnerReferences = append(bdc.OwnerReferences, reference)
 	return bdc
 }
