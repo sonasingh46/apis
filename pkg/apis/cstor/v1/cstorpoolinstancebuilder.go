@@ -14,10 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package cstor
+package v1
 
 import 	(
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"github.com/openebs/maya/pkg/util"
+
 )
 
 const (
@@ -145,5 +147,36 @@ func (cspi *CStorPoolInstance) WithNewVersion(version string) *CStorPoolInstance
 func (cspi *CStorPoolInstance) WithDependentsUpgraded() *CStorPoolInstance {
 	cspi.VersionDetails.Status.DependentsUpgraded = true
 	return cspi
+}
+
+// HasFinalizer returns true if the provided finalizer is present on the object.
+func (cspi *CStorPoolInstance) HasFinalizer(finalizer string) bool {
+	finalizersList := cspi.GetFinalizers()
+	return util.ContainsString(finalizersList, finalizer)
+}
+
+// RemoveFinalizer removes the given finalizer from the object.
+func (cspi *CStorPoolInstance) RemoveFinalizer(finalizer string)  {
+	cspi.Finalizers = util.RemoveString(cspi.Finalizers, finalizer)
+}
+
+// HasAnnotation return true if provided annotation
+// key and value are present on the object.
+func (cspi *CStorPoolInstance) HasAnnotation(key, value string) bool {
+	val, ok := cspi.GetAnnotations()[key]
+	if ok {
+		return val == value
+	}
+	return false
+}
+
+// HasLabel returns true if provided label
+// key and value are present on the object.
+func (cspi *CStorPoolInstance) HasLabel(key, value string) bool {
+	val, ok := cspi.GetLabels()[key]
+	if ok {
+		return val == value
+	}
+	return false
 }
 
