@@ -28,6 +28,10 @@ type Interface interface {
 	CStorPoolClusters() CStorPoolClusterInformer
 	// CStorPoolInstances returns a CStorPoolInstanceInformer.
 	CStorPoolInstances() CStorPoolInstanceInformer
+	// CStorVolumes returns a CStorVolumeInformer.
+	CStorVolumes() CStorVolumeInformer
+	// CStorVolumeReplicas returns a CStorVolumeReplicaInformer.
+	CStorVolumeReplicas() CStorVolumeReplicaInformer
 }
 
 type version struct {
@@ -49,4 +53,14 @@ func (v *version) CStorPoolClusters() CStorPoolClusterInformer {
 // CStorPoolInstances returns a CStorPoolInstanceInformer.
 func (v *version) CStorPoolInstances() CStorPoolInstanceInformer {
 	return &cStorPoolInstanceInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+}
+
+// CStorVolumes returns a CStorVolumeInformer.
+func (v *version) CStorVolumes() CStorVolumeInformer {
+	return &cStorVolumeInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+}
+
+// CStorVolumeReplicas returns a CStorVolumeReplicaInformer.
+func (v *version) CStorVolumeReplicas() CStorVolumeReplicaInformer {
+	return &cStorVolumeReplicaInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }

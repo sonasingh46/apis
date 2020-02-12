@@ -21,3 +21,7 @@ package v1
 type CStorPoolClusterExpansion interface{}
 
 type CStorPoolInstanceExpansion interface{}
+
+type CStorVolumeExpansion interface{}
+
+type CStorVolumeReplicaExpansion interface{}

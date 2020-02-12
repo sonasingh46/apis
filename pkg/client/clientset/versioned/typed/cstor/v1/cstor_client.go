@@ -28,6 +28,8 @@ type CstorV1Interface interface {
 	RESTClient() rest.Interface
 	CStorPoolClustersGetter
 	CStorPoolInstancesGetter
+	CStorVolumesGetter
+	CStorVolumeReplicasGetter
 }
 
 // CstorV1Client is used to interact with features provided by the cstor.openebs.io group.
@@ -41,6 +43,14 @@ func (c *CstorV1Client) CStorPoolClusters(namespace string) CStorPoolClusterInte
 
 func (c *CstorV1Client) CStorPoolInstances(namespace string) CStorPoolInstanceInterface {
 	return newCStorPoolInstances(c, namespace)
+}
+
+func (c *CstorV1Client) CStorVolumes(namespace string) CStorVolumeInterface {
+	return newCStorVolumes(c, namespace)
+}
+
+func (c *CstorV1Client) CStorVolumeReplicas(namespace string) CStorVolumeReplicaInterface {
+	return newCStorVolumeReplicas(c, namespace)
 }
 
 // NewForConfig creates a new CstorV1Client for the given config.

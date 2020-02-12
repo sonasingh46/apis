@@ -36,6 +36,14 @@ func (c *FakeCstorV1) CStorPoolInstances(namespace string) v1.CStorPoolInstanceI
 	return &FakeCStorPoolInstances{c, namespace}
 }
 
+func (c *FakeCstorV1) CStorVolumes(namespace string) v1.CStorVolumeInterface {
+	return &FakeCStorVolumes{c, namespace}
+}
+
+func (c *FakeCstorV1) CStorVolumeReplicas(namespace string) v1.CStorVolumeReplicaInterface {
+	return &FakeCStorVolumeReplicas{c, namespace}
+}
+
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
 func (c *FakeCstorV1) RESTClient() rest.Interface {
